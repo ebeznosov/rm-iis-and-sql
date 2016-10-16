@@ -26,14 +26,14 @@
       "metadata": {
         "description": "Web Server VM's size"
       },
-      "defaultValue": "Basic_A2"
+      "defaultValue": "Standard_DS2"
     },
     "sqlVMSize": {
       "type": "string",
       "metadata": {
         "description": "SQL Server VM's size"
       },
-      "defaultValue": "Basic_A2"
+      "defaultValue": "Standard_DS2"
     },
     "storageAccountType": {
       "type": "string",
@@ -75,7 +75,7 @@
     "webLbName": "[concat(variables('webSrvName'), 'lb')]",
     "webLblb_PIP_Id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('webSrvPublicIP'))]",
     "vmExtensionName": "dscExtension",
-    "modulesUrl": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/iis-2vm-sql-1vm/scripts/WebServerConfig.ps1.zip",
+    "modulesUrl": "https://github.com/ebeznosov/rm-iis-and-sql/blob/master/scripts/WebServerConfig.ps1.zip",
     "configurationFunction": "WebServerConfig.ps1\\WebServerConfig"
   },
   "resources": [
