@@ -75,7 +75,7 @@
     "webLbName": "[concat(variables('webSrvName'), 'lb')]",
     "webLblb_PIP_Id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('webSrvPublicIP'))]",
     "vmExtensionName": "dscExtension",
-    "modulesUrl": "https://github.com/ebeznosov/rm-iis-and-sql/blob/master/scripts/WebServerConfig.ps1.zip",
+    "modulesUrl": "https://raw.githubusercontent.com/ebeznosov/rm-iis-and-sql/master/scripts/IISSetup.ps1.zip",
     "configurationFunction": "WebServerConfig.ps1\\WebServerConfig"
   },
   "resources": [

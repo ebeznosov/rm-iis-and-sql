@@ -3,13 +3,13 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "EnvDNS": {
-      "value": "fdiis5"
+      "value": "fdiis6"
     },
     "username": {
       "value": "VMAdmin"
     },
     "password": {
-      "value": "AaronRamsey16"
+      "value": "FrameworkDay2016"
     }
   }
 }
