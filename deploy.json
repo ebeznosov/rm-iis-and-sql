@@ -76,7 +76,7 @@
     "webLblb_PIP_Id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('webSrvPublicIP'))]",
     "vmExtensionName": "dscExtension",
     "modulesUrl": "https://raw.githubusercontent.com/ebeznosov/rm-iis-and-sql/master/scripts/IISSetup.ps1.zip",
-    "configurationFunction": "WebServerConfig.ps1\\WebServerConfig"
+    "configurationFunction": "IISSetup.ps1\\IISSetup"
   },
   "resources": [
     {
