@@ -28,7 +28,7 @@
       },
       "defaultValue": "Standard_DS2"
     },
-    "sqlVMSize": {
+    "SQLServVMSize": {
       "type": "string",
       "metadata": {
         "description": "SQL Server VM's size"
@@ -44,43 +44,43 @@
     }
   },
   "variables": {
-    "apiVersion": "2015-06-15",
-    "storageName": "[concat(parameters('EnvDNS'), 'storage')]",
-    "vhdContainer": "vhds",
-    "virtualNetworkName": "[concat(parameters('EnvDNS'), 'VNet')]",
-    "addressPrefix": "192.168.0.0/16",
+    "APIVersion": "2015-06-15",
+    "StorageName": "[concat(parameters('EnvDNS'), 'storage')]",
+    "VhdContainer": "vhds",
+    "VirtualNetworkName": "[concat(parameters('EnvDNS'), 'VNet')]",
+    "AddressPrefix": "192.168.0.0/16",
     "SubnetPrefix": "192.168.10.0/24",    
     "WebNSGName": "WebNsg",
     "SQLNSGName": "SQLNsg",
-    "sqlSrvDBName": "[concat(parameters('EnvDNS'), 'SQLServ')]",
-    "sqlVmSize": "[parameters('sqlVMSize')]",
-    "sqlSrvDBOsDiskName": "[concat(parameters('EnvDNS'), 'SQLServOS')]",
-    "sqlSrvDBDataDiskName": "[concat(parameters('EnvDNS'), 'SQLServData')]",
-    "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
-    "sqlSrvDBNicName": "[concat(variables('sqlSrvDBName'), 'NIC')]",
-    "sqlSvrDBSubnetRef": "[concat(variables('vnetId'), '/subnets/', 'SubnetName')]",
+    "SQLServDBName": "[concat(parameters('EnvDNS'), 'SQLServ')]",
+    "SQLServVMSize": "[parameters('SQLServVMSize')]",
+    "SQLServDBOsDiskName": "[concat(parameters('EnvDNS'), 'SQLServOS')]",
+    "SQLServDBDataDiskName": "[concat(parameters('EnvDNS'), 'SQLServData')]",
+    "VNetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('VirtualNetworkName'))]",
+    "SQLServDBNicName": "[concat(variables('SQLServDBName'), 'NIC')]",
+    "SQLSvrDBSubnetRef": "[concat(variables('vnetId'), '/subnets/', 'SubnetName')]",
     "SQLPublicIP": "[concat(parameters('EnvDNS'), 'SQLPIP')]",
-    "sqlPublicIPRef": "[resourceId('Microsoft.Network/publicIPAddresses', variables('SQLPublicIP'))]",
-    "sqlImagePublisher": "MicrosoftSQLServer",
-    "sqlImageOffer": "SQL2014-WS2012R2",
-    "sqlImageSku": "Standard",
-    "webSrvName": "[concat(parameters('EnvDNS'), 'WebServ')]",
+    "SQLPublicIPRef": "[resourceId('Microsoft.Network/publicIPAddresses', variables('SQLPublicIP'))]",
+    "SQLImagePublisher": "MicrosoftSQLServer",
+    "SQLImageOffer": "SQL2014-WS2012R2",
+    "SQLImageSku": "Standard",
+    "WebServName": "[concat(parameters('EnvDNS'), 'WebServ')]",
     "WebServVMSize": "[parameters('WebServVMSize')]",
-    "webSrvOSDiks": "[concat(parameters('EnvDNS'), 'WebServOS')]",
-    "webSrvNicName": "[concat(variables('webSrvName'), 'Nic')]",
-    "webSrvSubnetRef": "[concat(variables('vnetId'), '/subnets/', 'SubnetName')]",
-    "webSrvPublicIP": "[concat(parameters('EnvDNS'), 'webservpip')]",
-    "webSrvAvailabilitySetName": "[concat(parameters('EnvDNS'), 'WebSrvAS')]",
-    "webSrvDnsNameforLBIP": "[concat(toLower(variables('webSrvName')), 'lb')]",
-    "webLbName": "[concat(variables('webSrvName'), 'lb')]",
-    "webLblb_PIP_Id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('webSrvPublicIP'))]",
-    "vmExtensionName": "dscExtension",
-    "modulesUrl": "https://raw.githubusercontent.com/ebeznosov/rm-iis-and-sql/master/scripts/IISSetup.ps1.zip",
-    "configurationFunction": "IISSetup.ps1\\IISSetup"
+    "WebServOSDiks": "[concat(parameters('EnvDNS'), 'WebServOS')]",
+    "WebServNicName": "[concat(variables('WebServName'), 'Nic')]",
+    "WebServSubnetRef": "[concat(variables('vnetId'), '/subnets/', 'SubnetName')]",
+    "WebServPublicIP": "[concat(parameters('EnvDNS'), 'webservpip')]",
+    "WebServAvailabilitySetName": "[concat(parameters('EnvDNS'), 'WebServAS')]",
+    "WebServDnsNameforLBIP": "[concat(toLower(variables('WebServName')), 'lb')]",
+    "WebLbName": "[concat(variables('WebServName'), 'lb')]",
+    "WebLblb_PIP_Id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('WebServPublicIP'))]",
+    "VMExtensionName": "dscExtension",
+    "ModulesUrl": "https://raw.githubusercontent.com/ebeznosov/rm-iis-and-sql/master/scripts/IISSetup.ps1.zip",
+    "ConfigurationFunction": "IISSetup.ps1\\IISSetup"
   },
   "resources": [
     {
-      "apiVersion": "[variables('apiVersion')]",
+      "APIVersion": "[variables('APIVersion')]",
       "type": "Microsoft.Network/networkSecurityGroups",
       "name": "[variables('WebNSGName')]",
       "location": "[resourceGroup().location]",
@@ -119,7 +119,7 @@
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups",
-      "apiVersion": "[variables('apiVersion')]",
+      "APIVersion": "[variables('APIVersion')]",
       "name": "[variables('SQLNSGName')]",
       "location": "[resourceGroup().location]",
       "properties": {
@@ -184,9 +184,9 @@
       }
     },
     {
-      "apiVersion": "[variables('apiVersion')]",
+      "APIVersion": "[variables('APIVersion')]",
       "type": "Microsoft.Network/virtualNetworks",
-      "name": "[variables('virtualNetworkName')]",
+      "name": "[variables('VirtualNetworkName')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Network/networkSecurityGroups/', variables('WebNSGName'))]",
@@ -194,15 +194,15 @@
       ],
       "properties": {
         "addressSpace": {
-          "addressPrefixes": [
-            "[variables('addressPrefix')]"
+          "AddressPrefixes": [
+            "[variables('AddressPrefix')]"
           ]
         },
         "subnets": [
           {
             "name": "SubnetName",
             "properties": {
-              "addressPrefix": "[variables('SubnetPrefix')]",
+              "AddressPrefix": "[variables('SubnetPrefix')]",
               "networkSecurityGroup": {
                 "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('WebNSGName'))]"
               }
@@ -212,10 +212,10 @@
       }
     },
     {
-      "name": "[variables('storageName')]",
+      "name": "[variables('StorageName')]",
       "type": "Microsoft.Storage/storageAccounts",
       "location": "[resourceGroup().location]",
-      "apiVersion": "[variables('apiVersion')]",
+      "APIVersion": "[variables('APIVersion')]",
       "dependsOn": [ ],
       "properties": {
         "accountType": "[parameters('storageAccountType')]"
@@ -225,19 +225,19 @@
       "name": "[variables('sqlPublicIP')]",
       "type": "Microsoft.Network/publicIPAddresses",
       "location": "[resourceGroup().location]",
-      "apiVersion": "[variables('apiVersion')]",
+      "APIVersion": "[variables('APIVersion')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "idleTimeoutInMinutes": 4
       }
     },
     {
-      "name": "[variables('sqlSrvDBNicName')]",
+      "name": "[variables('SQLServDBNicName')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[resourceGroup().location]",
-      "apiVersion": "[variables('apiVersion')]",
+      "APIVersion": "[variables('APIVersion')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+        "[concat('Microsoft.Network/virtualNetworks/', variables('VirtualNetworkName'))]"
       ],
       "properties": {
         "ipConfigurations": [
@@ -260,18 +260,18 @@
       "name": "[concat(parameters('EnvDNS'), 'SQLServ')]",
       "type": "Microsoft.Compute/virtualMachines",
       "location": "[resourceGroup().location]",
-      "apiVersion": "[variables('apiVersion')]",
+      "APIVersion": "[variables('APIVersion')]",
       "dependsOn": [
-        "[concat('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', variables('sqlSrvDBNicName'))]",
+        "[concat('Microsoft.Storage/storageAccounts/', variables('StorageName'))]",
+        "[concat('Microsoft.Network/networkInterfaces/', variables('SQLServDBNicName'))]",
         "[concat('Microsoft.Network/publicIPAddresses/', variables('sqlPublicIP'))]"
       ],
       "properties": {
         "hardwareProfile": {
-          "vmSize": "[variables('sqlVmSize')]"
+          "vmSize": "[variables('SQLServVMSize')]"
         },
         "osProfile": {
-          "computerName": "[variables('sqlSrvDBName')]",
+          "computerName": "[variables('SQLServDBName')]",
           "adminUsername": "[parameters('username')]",
           "adminPassword": "[parameters('password')]"
         },
@@ -285,7 +285,7 @@
           "osDisk": {
             "name": "SQLServDBOSDisk",
             "vhd": {
-              "uri": "[concat('http://', variables('storageName'), '.blob.core.windows.net/', variables('vhdContainer'), '/', variables('sqlSrvDBOsDiskName'), '.vhd')]"
+              "uri": "[concat('http://', variables('StorageName'), '.blob.core.windows.net/', variables('VhdContainer'), '/', variables('SQLServDBOsDiskName'), '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -295,7 +295,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('sqlSrvDBNicName'))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('SQLServDBNicName'))]"
             }
           ]
         }
@@ -303,31 +303,31 @@
     },
     {
       "type": "Microsoft.Compute/availabilitySets",
-      "name": "[variables('webSrvAvailabilitySetName')]",
-      "apiVersion": "[variables('apiVersion')]",
+      "name": "[variables('WebServAvailabilitySetName')]",
+      "APIVersion": "[variables('APIVersion')]",
       "location": "[resourceGroup().location]",
       "properties": { }
     },
     {
-      "name": "[variables('webSrvPublicIP')]",
+      "name": "[variables('WebServPublicIP')]",
       "type": "Microsoft.Network/publicIPAddresses",
       "location": "[resourceGroup().location]",
-      "apiVersion": "[variables('apiVersion')]",
+      "APIVersion": "[variables('APIVersion')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "idleTimeoutInMinutes": 4,
         "dnsSettings": {
-          "domainNameLabel": "[variables('webSrvDnsNameforLBIP')]"
+          "domainNameLabel": "[variables('WebServDnsNameforLBIP')]"
         }
       }
     },
     {
-      "name": "[variables('webSrvNicName')]",
+      "name": "[variables('WebServNicName')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[resourceGroup().location]",
-      "apiVersion": "[variables('apiVersion')]",
+      "APIVersion": "[variables('APIVersion')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
+        "[concat('Microsoft.Network/virtualNetworks/', variables('VirtualNetworkName'))]",
       ],
       "properties": {
         "ipConfigurations": [
@@ -336,7 +336,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[variables('webSrvSubnetRef')]"
+                "id": "[variables('WebServSubnetRef')]"
               }              
             }
           }
@@ -344,24 +344,24 @@
       }
     },
     {
-      "name": "[variables('webSrvName')]",
+      "name": "[variables('WebServName')]",
       "type": "Microsoft.Compute/virtualMachines",
       "location": "[resourceGroup().location]",
-      "apiVersion": "[variables('apiVersion')]",
+      "APIVersion": "[variables('APIVersion')]",
       "dependsOn": [
-        "[concat('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', variables('webSrvNicName'))]",
-        "[concat('Microsoft.Compute/availabilitySets/', variables('webSrvAvailabilitySetName'))]"
+        "[concat('Microsoft.Storage/storageAccounts/', variables('StorageName'))]",
+        "[concat('Microsoft.Network/networkInterfaces/', variables('WebServNicName'))]",
+        "[concat('Microsoft.Compute/availabilitySets/', variables('WebServAvailabilitySetName'))]"
       ],
       "properties": {
         "availabilitySet": {
-          "id": "[resourceId('Microsoft.Compute/availabilitySets',variables('webSrvAvailabilitySetName'))]"
+          "id": "[resourceId('Microsoft.Compute/availabilitySets',variables('WebServAvailabilitySetName'))]"
         },
         "hardwareProfile": {
           "vmSize": "[variables('WebServVMSize')]"
         },
         "osProfile": {
-          "computerName": "[variables('webSrvName')]",
+          "computerName": "[variables('WebServName')]",
           "adminUsername": "[parameters('username')]",
           "adminPassword": "[parameters('password')]"
         },
@@ -375,7 +375,7 @@
           "osDisk": {
             "name": "WebSvrOSDisk",
             "vhd": {
-              "uri": "[concat('http://', variables('storageName'), '.blob.core.windows.net/', variables('vhdContainer'), '/', variables('webSrvOSDiks'), '.vhd')]"
+              "uri": "[concat('http://', variables('StorageName'), '.blob.core.windows.net/', variables('VhdContainer'), '/', variables('WebServOSDiks'), '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -384,7 +384,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('webSrvNicName'))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('WebServNicName'))]"
             }
           ]
         }
@@ -392,11 +392,11 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(variables('webSrvName'),'/', variables('vmExtensionName'))]",
-      "apiVersion": "[variables('apiVersion')]",
+      "name": "[concat(variables('WebServName'),'/', variables('vmExtensionName'))]",
+      "APIVersion": "[variables('APIVersion')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', variables('webSrvName'))]"
+        "[concat('Microsoft.Compute/virtualMachines/', variables('WebServName'))]"
       ],
       "properties": {
         "publisher": "Microsoft.Powershell",
@@ -404,9 +404,9 @@
         "typeHandlerVersion": "2.19",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "ModulesUrl": "[variables('modulesUrl')]",
+          "ModulesUrl": "[variables('ModulesUrl')]",
           "SasToken": "",
-          "ConfigurationFunction": "[variables('configurationFunction')]",
+          "ConfigurationFunction": "[variables('ConfigurationFunction')]",
           "wmfVersion": "4.0",
           "Properties": {
           }

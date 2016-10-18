@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "EnvDNS": {
-      "value": "fdiis6"
+      "value": "fdiis8"
     },
     "username": {
       "value": "VMAdmin"
