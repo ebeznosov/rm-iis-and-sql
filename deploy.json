@@ -7,7 +7,7 @@
       "metadata": {
         "description": "Environment DNS Prefix"
       },
-      "defaultValue": "fdiis"
+      "defaultValue": "fdayenv"
     },
     "username": {
       "type": "string",
@@ -44,7 +44,7 @@
     }
   },
   "variables": {
-    "APIVersion": "2015-06-15",
+    "APIVersion": "2016-03-30",
     "StorageName": "[concat(parameters('EnvDNS'), 'storage')]",
     "VhdContainer": "vhds",
     "VirtualNetworkName": "[concat(parameters('EnvDNS'), 'VNet')]",
